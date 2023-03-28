@@ -1,0 +1,76 @@
+syntax = "proto3";
+package app.proto.v1;
+option go_package = "gg/app/proto/v1";
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+
+message StringMessage {
+  string value = 1;
+}
+
+service UserService {
+
+  rpc Echo(StringMessage) returns (StringMessage) {
+    option (google.api.http) = {
+      get: "/v1/echo"
+    };
+  }
+
+  rpc CreateUser(UserMessage) returns (response) {
+    option (google.api.http) = {
+      post: "/v1/user"
+      body: "*"
+    };
+  }
+
+  rpc GetUser(GetUserMessage) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/v1/user/{id}"
+    };
+  }
+
+  rpc UpdateUser(UpdateUserInfo) returns (response) {
+    option (google.api.http) = {
+      put: "/v1/user"
+      body: "*"
+    };
+  }
+
+  rpc DeleteUser(GetUserMessage) returns (response) {
+    option (google.api.http) = {
+      delete: "/v1/user/{id}"
+    };
+  }
+}
+
+message UserMessage {
+  string name = 1;
+  int32 age = 2;
+}
+
+message response {
+  int32 code = 1;
+  string message = 2;
+}
+
+message GetUserMessage {
+  int32 id = 1;
+}
+
+message GetUserResponse {
+  int32 code = 1;
+  string message = 2;
+  UserInfo data = 3;
+}
+
+message UpdateUserInfo {
+  int32 id = 1 ;
+  google.protobuf.StringValue name = 2;
+  google.protobuf.Int32Value age = 3;
+}
+
+message UserInfo {
+  int32 id = 1;
+  string name = 2;
+  int32 age = 3;
+}

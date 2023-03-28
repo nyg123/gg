@@ -1,0 +1,5 @@
+Addr:
+  GrpcAddr: 0.0.0.0:50051
+  HttpAddr: 0.0.0.0:50052
+Mysql:
+  DSN: root:123456@tcp(127.0.0.1:3306)/gg?charset=utf8mb4&parseTime=True&loc=Local
